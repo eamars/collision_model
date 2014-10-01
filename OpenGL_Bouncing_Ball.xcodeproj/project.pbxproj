@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8216EAB19DB865D005FB812 /* ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8216EA919DB865D005FB812 /* ball.cpp */; };
 		A856606119DA0B17007F4883 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A856606019DA0B17007F4883 /* main.cpp */; };
+		A856606919DA0B3A007F4883 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A856606719DA0B3A007F4883 /* GLUT.framework */; };
+		A856606A19DA0B3A007F4883 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A856606819DA0B3A007F4883 /* OpenGL.framework */; };
+		A856607119DA0B4D007F4883 /* fps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A856606B19DA0B4D007F4883 /* fps.cpp */; };
+		A856607219DA0B4D007F4883 /* GLColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A856606D19DA0B4D007F4883 /* GLColor.cpp */; };
+		A856607319DA0B4D007F4883 /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A856606F19DA0B4D007F4883 /* TextBox.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +29,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A8216EA919DB865D005FB812 /* ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ball.cpp; sourceTree = "<group>"; };
+		A8216EAA19DB865D005FB812 /* ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ball.h; sourceTree = "<group>"; };
 		A856605D19DA0B17007F4883 /* OpenGL_Bouncing_Ball */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenGL_Bouncing_Ball; sourceTree = BUILT_PRODUCTS_DIR; };
 		A856606019DA0B17007F4883 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A856606719DA0B3A007F4883 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../../../../System/Library/Frameworks/GLUT.framework; sourceTree = "<group>"; };
+		A856606819DA0B3A007F4883 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = ../../../../../../System/Library/Frameworks/OpenGL.framework; sourceTree = "<group>"; };
+		A856606B19DA0B4D007F4883 /* fps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fps.cpp; sourceTree = "<group>"; };
+		A856606C19DA0B4D007F4883 /* fps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fps.h; sourceTree = "<group>"; };
+		A856606D19DA0B4D007F4883 /* GLColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLColor.cpp; sourceTree = "<group>"; };
+		A856606E19DA0B4D007F4883 /* GLColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLColor.h; sourceTree = "<group>"; };
+		A856606F19DA0B4D007F4883 /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBox.cpp; sourceTree = "<group>"; };
+		A856607019DA0B4D007F4883 /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBox.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +48,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A856606919DA0B3A007F4883 /* GLUT.framework in Frameworks */,
+				A856606A19DA0B3A007F4883 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +59,8 @@
 		A856605419DA0B17007F4883 = {
 			isa = PBXGroup;
 			children = (
+				A856606719DA0B3A007F4883 /* GLUT.framework */,
+				A856606819DA0B3A007F4883 /* OpenGL.framework */,
 				A856605F19DA0B17007F4883 /* OpenGL_Bouncing_Ball */,
 				A856605E19DA0B17007F4883 /* Products */,
 			);
@@ -57,7 +77,15 @@
 		A856605F19DA0B17007F4883 /* OpenGL_Bouncing_Ball */ = {
 			isa = PBXGroup;
 			children = (
+				A856606B19DA0B4D007F4883 /* fps.cpp */,
+				A856606C19DA0B4D007F4883 /* fps.h */,
+				A856606D19DA0B4D007F4883 /* GLColor.cpp */,
+				A856606E19DA0B4D007F4883 /* GLColor.h */,
+				A856606F19DA0B4D007F4883 /* TextBox.cpp */,
+				A856607019DA0B4D007F4883 /* TextBox.h */,
 				A856606019DA0B17007F4883 /* main.cpp */,
+				A8216EA919DB865D005FB812 /* ball.cpp */,
+				A8216EAA19DB865D005FB812 /* ball.h */,
 			);
 			path = OpenGL_Bouncing_Ball;
 			sourceTree = "<group>";
@@ -119,6 +147,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A856606119DA0B17007F4883 /* main.cpp in Sources */,
+				A856607119DA0B4D007F4883 /* fps.cpp in Sources */,
+				A856607319DA0B4D007F4883 /* TextBox.cpp in Sources */,
+				A8216EAB19DB865D005FB812 /* ball.cpp in Sources */,
+				A856607219DA0B4D007F4883 /* GLColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +234,7 @@
 		A856606519DA0B17007F4883 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -209,6 +242,7 @@
 		A856606619DA0B17007F4883 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -232,6 +266,7 @@
 				A856606619DA0B17007F4883 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
