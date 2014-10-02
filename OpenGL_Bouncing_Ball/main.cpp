@@ -14,41 +14,58 @@
 #include "GLColor.h"
 #include "TextBox.h"
 #include "ball.h"
+#include <ctime>
+
+
+#define ENABLE_COLLISION 1
+#define ENABLE_RELATIVE_GRAVITY 1
+#define ENABLE_GRAVITY 0
+
+#define NUM_OF_BALLS 4
+#define X_BOUNDARY 100
+#define Y_BOUNDARY 100
 
 #define RANDOM(X) rand() % (X * 100) / 100.0
 #define RANDOM_N(X) (rand() % (X * 100) - X * 100 / 2) / 100.0
-#define NUM_OF_BALLS 20
-
-const float x_boundary = 10;
-const float y_boundary = 10;
 
 
 
 static Ball balllist[NUM_OF_BALLS];
 
 void init_ball_list(void){
+	/*
 	for (int i = 0; i < NUM_OF_BALLS; i++) {
-		balllist[i] = Ball(RANDOM(10), RANDOM(10), RANDOM_N(10), RANDOM_N(10), 0.2);
-		balllist[i].ay(G);
+		balllist[i] = Ball(RANDOM(X_BOUNDARY), RANDOM(Y_BOUNDARY), 3, 0, 0.2, 10);
+		
+		if (ENABLE_GRAVITY) {
+			balllist[i].ay(10);
+		}
 	}
+	 */
+	
+	balllist[0] = Ball(50, 50, 0, 0, 2, 500, false);
+	balllist[1] = Ball(50, 20, 6, 0, 0.5, 20, false);
+	balllist[2] = Ball(50, 70, 8, 0, 0.5, 20, false);
+	balllist[3] = Ball(20, 50, 0, -8, 1, 40, false);
 }
 
 void simulation(void){
 	
 	for (int i = 0; i < NUM_OF_BALLS; i++) {
-		balllist[i].collide_with_boundary(0, 10, 0, 10);
-	}
-	
-	for (int i = 0; i < NUM_OF_BALLS; i++) {
+		balllist[i].collide_with_boundary(0, X_BOUNDARY, 0, Y_BOUNDARY);
 		for (int j = i + 1; j < NUM_OF_BALLS; j++) {
-			balllist[i].collide_with_ball(balllist[j]);
+			if (ENABLE_COLLISION) {
+				balllist[i].collide_with_ball(balllist[j]);
+			}
+			
 		}
-	}
-	
-	for (int i = 0; i < NUM_OF_BALLS; i++) {
+		if (ENABLE_RELATIVE_GRAVITY) {
+			balllist[i].gravity_with_ball(balllist, i, NUM_OF_BALLS);
+		}
 		balllist[i].advance();
 	}
 	
+
 }
 
 void draw(void){
@@ -69,7 +86,7 @@ void draw(void){
 	
 	glFlush();
 
-	printFPS(0, 9.8);
+	printFPS(0, 0.98 * Y_BOUNDARY);
 	
 	
 	glutSwapBuffers();
@@ -86,7 +103,7 @@ void init(void)
 	glClearColor(0.0,0.0,0.0,0.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, x_boundary, 0, y_boundary, -1, 1);
+	glOrtho(0, X_BOUNDARY, 0, Y_BOUNDARY, -1, 1);
 	
 	glLineWidth(1.0f);//default line width =1
 	
@@ -96,7 +113,7 @@ void init(void)
 
 int main(int argc,char **argv)
 {
-	
+	srand(time(0));
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB);
 	glutInitWindowSize(500,500);

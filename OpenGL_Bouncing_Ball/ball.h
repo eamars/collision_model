@@ -11,12 +11,11 @@
 
 #include <stdio.h>
 
-
-#define ENERGY_LOSS_WALL 0.9
-#define	ENERGY_LOSS_PARTICLE 0.9
+#define ENERGY_LOSS_WALL 1.0
+#define	ENERGY_LOSS_PARTICLE 0.25
 #define MASS_LOSS_WALL 1.0
 #define MASS_LOSS_PARTICLE 1.0
-#define G 10
+#define G 6.67
 #define H 0.01
 
 class Ball {
@@ -28,23 +27,25 @@ class Ball {
 	float _ay = 0;
 	float h = H;
 	
+	bool fix_pos;
+	
 	
 	
 public:
 	Ball();
 	~Ball(){ }
 	
-	Ball(float init_px, float init_py, float init_vx, float init_vy, float init_radius, float init_mass=1);
+	Ball(float init_px, float init_py, float init_vx, float init_vy, float init_radius, float init_mass=1, bool is_fixed=false);
 	
 	void draw();
 	void advance();
 	
 	float kinetic_energy();
-	float potental_energy();
 	
-	void collide_with_boundary(float x_rear, float x_far, float y_rear, float y_far);
-	void collide_with_ball(Ball &other);
+	bool collide_with_boundary(float x_rear, float x_far, float y_rear, float y_far);
+	bool collide_with_ball(Ball &other);
 	
+	void gravity_with_ball(Ball *others, int current, int num);
 	
 	/* properties */
 	float ax(){

@@ -45,8 +45,8 @@ void DrawCircle(float cx, float cy, float r, int num_segments)
 
 
 float distance(Vector v1, Vector v2){
-	float dx = fabsf(v1.x - v2.x);
-	float dy = fabsf(v1.y - v2.y);
+	float dx = v1.x - v2.x;
+	float dy = v1.y - v2.y;
 	return sqrtf(dx * dx + dy * dy);
 }
 
@@ -73,10 +73,12 @@ Ball::Ball(){
 	
 	mass(1);
 	radius(1);
+	
+	fix_pos = false;
 }
 
 
-Ball::Ball(float init_px, float init_py, float init_vx, float init_vy, float init_radius, float init_mass){
+Ball::Ball(float init_px, float init_py, float init_vx, float init_vy, float init_radius, float init_mass, bool is_fixed){
 	px(init_px);
 	py(init_py);
 	
@@ -86,6 +88,8 @@ Ball::Ball(float init_px, float init_py, float init_vx, float init_vy, float ini
 	mass(init_mass);
 	radius(init_radius);
 	
+	fix_pos = is_fixed;
+	
 }
 
 void Ball::draw(){
@@ -93,21 +97,20 @@ void Ball::draw(){
 }
 
 void Ball::advance(){
-	vx(vx() + h * (-ax()));
-	vy(vy() + h * (-ay()));
-	py(py() + h * vy());
-	px(px() + h * vx());
+	if (!fix_pos) {
+		vx(vx() + h * (-ax()));
+		vy(vy() + h * (-ay()));
+		py(py() + h * vy());
+		px(px() + h * vx());
+	}
+	
 }
 
 float Ball::kinetic_energy(){
 	return (vx()*vx()+vy()*vy())/2;
 }
 
-float Ball::potental_energy(){
-	return ay() * py();
-}
-
-void Ball::collide_with_boundary(float x_near, float x_rear, float y_near, float y_rear){
+bool Ball::collide_with_boundary(float x_near, float x_rear, float y_near, float y_rear){
 	// reach button
 	if (py()-radius() <= y_near && vy() < 0){
 		vy(-vy() * ENERGY_LOSS_WALL);
@@ -115,6 +118,8 @@ void Ball::collide_with_boundary(float x_near, float x_rear, float y_near, float
 		
 		radius(radius() * MASS_LOSS_WALL);
 		mass(mass() * MASS_LOSS_WALL);
+		
+		return true;
 	}
 	
 	// reach top
@@ -124,6 +129,8 @@ void Ball::collide_with_boundary(float x_near, float x_rear, float y_near, float
 		
 		radius(radius() * MASS_LOSS_WALL);
 		mass(mass() * MASS_LOSS_WALL);
+		
+		return true;
 	}
 	
 	// reach left
@@ -133,6 +140,8 @@ void Ball::collide_with_boundary(float x_near, float x_rear, float y_near, float
 		
 		radius(radius() * MASS_LOSS_WALL);
 		mass(mass() * MASS_LOSS_WALL);
+		
+		return true;
 	}
 	
 	// reach right
@@ -142,13 +151,16 @@ void Ball::collide_with_boundary(float x_near, float x_rear, float y_near, float
 		
 		radius(radius() * MASS_LOSS_WALL);
 		mass(mass() * MASS_LOSS_WALL);
+		
+		return true;
 	}
+	return false;
 	
 	
 }
 
-void Ball::collide_with_ball(Ball &other){
-	if (distance({px(), py()}, {other.px(), other.py()}) < radius() + other.radius()) {
+bool Ball::collide_with_ball(Ball &other){
+	if (distance({px(), py()}, {other.px(), other.py()}) <= (radius() + other.radius())) {
 		/* Step1 */
 		
 		// find normal vector
@@ -219,14 +231,42 @@ void Ball::collide_with_ball(Ball &other){
 		
 		radius(radius() * MASS_LOSS_PARTICLE);
 		mass(mass() * MASS_LOSS_PARTICLE);
+		
+		return true;
 	}
+	
+	return false;
 }
 
-
-
-
-
-
-
-
+void Ball::gravity_with_ball(Ball *others, int current, int num){
+	Vector A = {0, 0};
+	Vector R12;
+	float r12;
+	float factor;
+	
+	for (int i = 0; i < num; i++) {
+		if (distance({px(), py()}, {others[i].px(), others[i].py()}) >= (radius() + others[i].radius())){
+			if (i != current) {
+				r12 = distance({others[i].px(), others[i].py()}, {px(), py()});
+				
+				factor = G * others[i].mass() / (r12 * r12);
+				
+				R12 = {others[i].px() - px(), others[i].py() - py()};
+				
+				normalize(&R12);
+				
+				A.x -= factor * R12.x;
+				A.y -= factor * R12.y;
+				
+				
+			}
+		}
+		
+		
+	}
+	
+	ax(A.x);
+	ay(A.y);
+	
+}
 
