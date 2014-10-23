@@ -31,27 +31,24 @@
 
 
 static Ball balllist[NUM_OF_BALLS];
-NewTextBox tb = NewTextBox(0, 0);
-static float total_kinetic = 0;
 
 void init_ball_list(void){
 	/*
 	for (int i = 0; i < NUM_OF_BALLS; i++) {
-		balllist[i] = Ball(RANDOM(X_BOUNDARY), RANDOM(Y_BOUNDARY), 0, 0, 0.5, 50);
+		balllist[i] = Ball(RANDOM(X_BOUNDARY), RANDOM(Y_BOUNDARY), 0, 0, 3, 100);
 		
 		if (ENABLE_GRAVITY) {
 			balllist[i].ay(10);
 		}
 	}
-	
 	*/
+	
 	
 	balllist[0] = Ball(50, 50, 0, 0, 3, 1400, false);
 	balllist[1] = Ball(50, 20, 10, 0, 0.5, 1, false);
 	balllist[2] = Ball(50, 10, 10, 0, 1, 20, false);
 	balllist[3] = Ball(10, 50, 0, -10, 0.5, 5, false);
 	balllist[4] = Ball(30, 60, -12, -12, 1, 10, false);
-	 
 	/*
 	balllist[0] = Ball(30, 50, 0, -15, 1, 50);
 	balllist[1] = Ball(70, 50, 0, 15, 1, 50);
@@ -61,7 +58,7 @@ void init_ball_list(void){
 }
 
 void simulation(void){
-	total_kinetic = 0;
+	
 	for (int i = 0; i < NUM_OF_BALLS; i++) {
 		balllist[i].collide_with_boundary(0, X_BOUNDARY, 0, Y_BOUNDARY);
 		for (int j = i + 1; j < NUM_OF_BALLS; j++) {
@@ -74,7 +71,6 @@ void simulation(void){
 			balllist[i].gravity_with_ball(balllist, i, NUM_OF_BALLS);
 		}
 		balllist[i].advance();
-		total_kinetic += balllist[i].kinetic_energy();
 	}
 	
 
@@ -99,8 +95,7 @@ void draw(void){
 	glFlush();
 
 	printFPS(0, 0.98 * Y_BOUNDARY);
-	tb.update("KE = " + std::to_string(total_kinetic));
-	tb.draw();
+	
 	
 	glutSwapBuffers();
 }

@@ -11,8 +11,8 @@
 
 #include <stdio.h>
 
-#define ENERGY_LOSS_WALL 1.0
-#define	ENERGY_LOSS_PARTICLE 0.25
+#define ENERGY_LOSS_WALL 0.9
+#define	ENERGY_LOSS_PARTICLE 0.9
 #define MASS_LOSS_WALL 1.0
 #define MASS_LOSS_PARTICLE 1.0
 #define G 6.67
