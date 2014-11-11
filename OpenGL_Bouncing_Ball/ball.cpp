@@ -97,7 +97,7 @@ void Ball::draw(){
 }
 
 void Ball::advance(){
-	if (!fix_pos && mass() > 0) {
+	if (!fix_pos) {
 		vx(vx() + h * (-ax()));
 		vy(vy() + h * (-ay()));
 		py(py() + h * vy());
