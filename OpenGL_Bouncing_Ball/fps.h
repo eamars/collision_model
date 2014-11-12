@@ -11,6 +11,8 @@
 
 #include <iostream>
 
-void printFPS(float x, float y);
+double get_fps_1();
+float get_fps_2();
+float get_fps_3();
 
 #endif /* defined(__pendulum__fps__) */

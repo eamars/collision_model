@@ -9,7 +9,13 @@
 #include "fps.h"
 #include "TextBox.h"
 
-double CalFrequency()
+
+/**
+ * Get the frame per second
+ * Method 1: Count the time for tick reach certain value
+ * @return FPS value
+ */
+double get_fps_1()
 {
     static int count;
     static double save;
@@ -17,23 +23,62 @@ double CalFrequency()
     double timegap;
     
     ++count;
-    if( count <= 50 )
+    if( count <= 10 )
         return save;
     count = 0;
     last = current;
     current = clock();
     timegap = (current-last)/(double)CLOCKS_PER_SEC;
-    save = 50.0/timegap;
+    save = 10.0/timegap;
     return save;
 }
 
-void printFPS(float x, float y){
-	double fpsValue = CalFrequency();
-	std::string fpsString = "FPS: " + std::to_string(fpsValue);
-	
-	
-	TextBox fpsObject(x, y, fpsString, GLColor::GL_WHITE_COLOR, GLUT_BITMAP_HELVETICA_12);
-	fpsObject.draw();
-	
-	
+/**
+ * Get the frame per second
+ * Method 2: Count the frame within certain tick interval
+ * @return FPS value
+ */
+float get_fps_2(){
+    static unsigned int frame = 0;
+    static unsigned int interval = 1000;
+    static unsigned int start, end;
+    static float f = 0.0f;
+    
+    // start counting time
+    if(frame == 0){
+        start = (unsigned int)clock();
+    }
+    
+    frame += 1;
+    
+    end = (unsigned int)clock();
+    
+    if ((end - start) >= interval){
+        f = (float)frame / (end - start) * CLOCKS_PER_SEC / 2;
+        frame = 0;
+    }
+    
+    return f;
+}
+
+float get_fps_3(){
+    static unsigned int frame = 0;
+    static unsigned int interval = 10;
+    static unsigned int start, end;
+    static float f = 0.0f;
+    
+    // start takeing time of frame0
+    if (frame == 0){
+        start = (unsigned int)clock();
+    }
+    
+    frame += 1;
+    
+    if (frame >= interval){
+        end = (unsigned int)clock();
+        f = (float)interval / (end - start) * CLOCKS_PER_SEC;
+        frame = 0;
+    }
+    
+    return f;
 }

@@ -32,6 +32,7 @@
 
 static Ball balllist[NUM_OF_BALLS];
 NewTextBox tb = NewTextBox(0, 0);
+NewTextBox fps = NewTextBox(0, 0.98 * Y_BOUNDARY, GLColor::GL_WHITE_COLOR, GLUT_BITMAP_HELVETICA_12);
 static float total_kinetic = 0;
 
 void init_ball_list(void){
@@ -104,9 +105,10 @@ void draw(void){
 	
 	glFlush();
 
-	printFPS(0, 0.98 * Y_BOUNDARY);
+    fps.update("FPS = " + std::to_string(get_fps_2()));
 	tb.update("KE = " + std::to_string(total_kinetic));
 	tb.draw();
+    fps.draw();
 	
 	glutSwapBuffers();
 }
