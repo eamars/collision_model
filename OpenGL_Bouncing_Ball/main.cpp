@@ -31,9 +31,10 @@
 
 
 static Ball balllist[NUM_OF_BALLS];
+static float total_kinetic = 0;
 NewTextBox tb = NewTextBox(0, 0);
 NewTextBox fps = NewTextBox(0, 0.98 * Y_BOUNDARY, GLColor::GL_WHITE_COLOR, GLUT_BITMAP_HELVETICA_12);
-static float total_kinetic = 0;
+
 
 void init_ball_list(void){
 	
